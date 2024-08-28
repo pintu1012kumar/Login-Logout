@@ -5,7 +5,10 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import mongoose from "mongoose";
-import User from './models/user.model.js';
+// import User from './models/user.model.js';
+import bodyParser from 'body-parser';
+import cors from 'cors';
+import authRouter from './routes/authRouter.js'
 
 
 const PORT = process.env.PORT || 5100
@@ -21,9 +24,10 @@ try {
     console.log("Error: ", error);
 }
 
+app.use(bodyParser.json());
+app.use(cors());
 
-
-app.use("/user", User);
+ app.use("/auth", authRouter);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
