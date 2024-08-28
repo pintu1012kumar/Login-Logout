@@ -9,6 +9,7 @@ import mongoose from "mongoose";
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import authRouter from './routes/authRouter.js'
+import productRouter from './routes/productRouter.js'
 
 
 const PORT = process.env.PORT || 5100
@@ -28,6 +29,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
  app.use("/auth", authRouter);
+ app.use("/product", productRouter);
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
