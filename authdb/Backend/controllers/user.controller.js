@@ -4,30 +4,33 @@ import jwt from 'jsonwebtoken';
 
 
 export const signup = async (req, res) => {
-    try {
+  try {
       const { fullname, email, password } = req.body;
+      
+      // Check if user already exists
       const user = await User.findOne({ email });
       if (user) {
-        return res.status(400).json({ message: "User already exists" });
+          return res.status(400).json({ message: 'User already exists' });
       }
-     // hashed your password
-     const hashPassword = await bcryptjs.hash(password,10);
-  
+
+      // Hash the password
+      const hashPassword = await bcryptjs.hash(password, 10);
+
       // Create the user
       const createUser = new User({
-        fullname: fullname,
-        email: email,
-        password: hashPassword,
+          fullname: fullname,
+          email: email,
+          password: hashPassword,
       });
-  
+
       await createUser.save();
-      res.status(201).json({ message: "User created successfully" });
-  
-    } catch (error) {
-      console.log("Error: " + error.message);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  };
+      res.status(201).json({ message: 'User created successfully' });
+
+  } catch (error) {
+      console.log('Error:', error.message);
+      res.status(500).json({ message: 'Internal server error' });
+  }
+};
 
 
   export const login = async (req,res) => {
