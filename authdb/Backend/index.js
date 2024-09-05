@@ -31,6 +31,12 @@ app.use(cors());
  app.use("/auth", authRouter);
  app.use("/product", productRouter);
 
+
+ app.get('/hello', (req, res) => {
+  res.send('Hello World!')
+})
+
+
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`)
 })
